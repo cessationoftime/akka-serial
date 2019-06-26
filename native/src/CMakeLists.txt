@@ -42,10 +42,18 @@ include_directories(include)
 include_directories(${JNI_INCLUDE_DIRS})
 
 # Sources
+if(WIN32)
+file(GLOB LIB_SRC
+  "*.c"
+  "platform/windows/*.c"
+)
+else()
 file(GLOB LIB_SRC
   "*.c"
   "platform/posix/*.c"
 )
+endif()
+
 
 # Setup installation targets
 # (required by sbt-jni) major version should always be appended to library name
