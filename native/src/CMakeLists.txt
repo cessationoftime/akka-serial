@@ -18,8 +18,13 @@ set(PROJECT_VERSION_PATCH 0)
 
 set(CMAKE_C_FLAGS "-std=c99")
 add_definitions(-Wall)
-add_definitions(-Wextra)
+if(CMAKE_COMPILER_IS_GNUCXX)
+    message(STATUS "GCC detected, adding compile flags")
+    add_definitions(-Wextra)
+endif(CMAKE_COMPILER_IS_GNUCXX)
+
 add_definitions(-pedantic)
+
 
 # Setup JNI
 find_package(JNI REQUIRED)
