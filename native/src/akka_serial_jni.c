@@ -1,6 +1,10 @@
 #include <stdint.h>
 
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+#include "akka_serial_win.h"
+#else
 #include "akka_serial.h"
+#endif /* WIN32 */ 
 
 #include "akka_serial_sync_UnsafeSerial.h"
 #include "akka_serial_sync_UnsafeSerial__.h"

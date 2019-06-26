@@ -25,15 +25,18 @@
 
 #include "akka_serial_win.h"
 
-#if defined(WIN32NATIVE)
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 
 #include <windows.h>
 #include <stdio.h>
 #include <ctype.h>   /* for isprint */
 
-#include "serial.h"
+#include "serial_win.h"
 
 long serial_recv_timeout = 5000; /* ms */
+
+char * progname = "Akka Serial";
+int verbose = 10; //verbosity level of output messages
 
 #define W32SERBUFSIZE 1024
 
