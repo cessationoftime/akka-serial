@@ -23,7 +23,7 @@
  * Native Win32 serial interface for avrdude.
  */
 
-#include "avrdude.h"
+#include "akka_serial_win.h"
 
 #if defined(WIN32NATIVE)
 
