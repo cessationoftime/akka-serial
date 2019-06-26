@@ -16,14 +16,18 @@ set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
 
-set(CMAKE_C_FLAGS "-std=c99")
-add_definitions(-Wall)
+
+
 if(CMAKE_COMPILER_IS_GNUCXX)
     message(STATUS "GCC detected, adding compile flags")
+    set(CMAKE_C_FLAGS "-std=c99")
     add_definitions(-Wextra)
+    add_definitions(-pedantic)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
-add_definitions(-pedantic)
+add_definitions(-Wall)
+
+
 
 
 # Setup JNI
