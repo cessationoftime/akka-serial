@@ -36,8 +36,40 @@
 long serial_recv_timeout = 5000; /* ms */
 
 char * progname = "Akka Serial";
-int verbose = 10; //verbosity level of output messages
 static bool debug = false;
+
+void serial_debug(bool value)
+{
+	debug = value;
+}
+
+char debugBuffer[255];
+
+static void print_debug(const char* const msg, int en)
+{
+	if (debug) {
+		if (errno == 0) {
+			fprintf(stderr, "%s", msg);
+		}
+		else {
+			fprintf(stderr, "%s: %d\n", msg, en);
+		}
+		fflush(stderr);
+	}
+}
+
+static void print_debug_port(const char* const msg,const char* port, int en)
+{
+	if (debug) {
+		if (errno == 0) {
+			fprintf(stderr, "%s for port \"%s\"", msg, port);
+		}
+		else {
+			fprintf(stderr, "%s for port \"%s\": %d\n", msg, port, en);
+		}
+		fflush(stderr);
+	}
+}
 
 #define DATA_CANCEL 0xffffffff
 
@@ -88,9 +120,9 @@ static DWORD serial_baud_lookup(long baud)
 
   /*
    * If a non-standard BAUD rate is used, issue
-   * a warning (if we are verbose) and return the raw rate
+   * a warning (if we in debug) and return the raw rate
    */
-  if (verbose > 0)
+  if (debug)
       fprintf(stderr, "%s: serial_baud_lookup(): Using non-standard baud rate: %ld",
               progname, baud);
 
@@ -109,7 +141,7 @@ static BOOL serial_w32SetTimeOut(HANDLE hComPort, DWORD timeout) // in ms
 	return SetCommTimeouts(hComPort, &ctmo);
 }
 
-static int ser_setspeed(union filedescriptor *fd, long baud)
+static int ser_setspeed(union filedescriptor *fd, long baud, int char_size, int parity, bool two_stop_bits)
 {
 	DCB dcb;
 	HANDLE hComPort = (HANDLE)fd->pfd;
@@ -120,12 +152,35 @@ static int ser_setspeed(union filedescriptor *fd, long baud)
 	dcb.fBinary = 1;
 	dcb.fDtrControl = DTR_CONTROL_DISABLE;
 	dcb.fRtsControl = RTS_CONTROL_DISABLE;
-	dcb.ByteSize = 8;
-	dcb.Parity = NOPARITY;
-	dcb.StopBits = ONESTOPBIT;
+
+	switch (char_size) {
+	case 5: dcb.ByteSize = 5; break;
+	case 6: dcb.ByteSize = 6; break;
+	case 7: dcb.ByteSize = 7; break;
+	case 8: dcb.ByteSize = 8; break;
+	default:
+		close(fd);
+		print_debug("Invalid character size", 0);
+		return -E_INVALID_SETTINGS;
+	}
+	
+
+	/* set parity */
+	switch (parity) {
+	case PARITY_NONE: dcb.Parity = PARITY_NONE; break;
+	case PARITY_ODD: dcb.Parity = PARITY_ODD; break;
+	case PARITY_EVEN: dcb.Parity = PARITY_EVEN; break;
+	default:
+		close(fd);
+		print_debug("Invalid parity", 0);
+		return -E_INVALID_SETTINGS;
+	}
+
+
+	dcb.StopBits = two_stop_bits ? TWOSTOPBITS : ONESTOPBIT;
 
 	if (!SetCommState(hComPort, &dcb))
-		return -1;
+		return -E_INVALID_SETTINGS;
 
 	return 0;
 }
@@ -141,14 +196,16 @@ int serial_open(
 
 	struct serial_config* s = malloc(sizeof(s));
 	
+	char* portName1;
 
-	ser_open(port_name, baud, &s->fd);
+	strcpy(portName1,port_name);
+	ser_open(portName1, baud,char_size,two_stop_bits,parity, &s->fd);
 	(*serial) = s;
 	return 0;
 }
 
 ///NOTE serial_open sets the filedescriptor
-static int ser_open(char * port, long baud, union filedescriptor *fdp)
+static int ser_open(const char* port, long baud, int char_size, bool two_stop_bits, int parity, union filedescriptor *fdp)
 {
 	LPVOID lpMsgBuf;
 	HANDLE hComPort=INVALID_HANDLE_VALUE;
@@ -161,11 +218,8 @@ static int ser_open(char * port, long baud, union filedescriptor *fdp)
 	 * This is curently not implemented for Win32.
 	 */
 	if (strncmp(port, "net:", strlen("net:")) == 0) {
-		fprintf(stderr,
-			"%s: ser_open(): network connects are currently not"
-			"implemented for Win32 environments\n",
-			progname);
-		return -1;
+		print_debug("ser_open(): network connects are currently not implemented for Win32 environments", errno);
+		return -E_IO;
 	}
 
 	if (strncasecmp(port, "com", strlen("com")) == 0) {
@@ -174,10 +228,8 @@ static int ser_open(char * port, long baud, union filedescriptor *fdp)
 	    newname = malloc(strlen("\\\\.\\") + strlen(port) + 1);
 
 	    if (newname == 0) {
-		fprintf(stderr,
-			"%s: ser_open(): out of memory\n",
-			progname);
-		exit(1);
+			print_debug("ser_open(): out of memory", errno);
+    		exit(1);
 	    }
 	    strcpy(newname, "\\\\.\\");
 	    strcat(newname, port);
@@ -199,35 +251,39 @@ static int ser_open(char * port, long baud, union filedescriptor *fdp)
 			(LPTSTR) &lpMsgBuf,
 			0,
 			NULL);
-		fprintf(stderr, "%s: ser_open(): can't open device \"%s\": %s\n",
-				progname, port, (char*)lpMsgBuf);
+
+		_snprintf_s(debugBuffer, _TRUNCATE, "ser_open(): can't open device \"%s\": %s", port, (char*)lpMsgBuf);
+		print_debug(debugBuffer, errno);
+
 		LocalFree( lpMsgBuf );
-		return -1;
+		return -E_IO;
 	}
 
 	if (!SetupComm(hComPort, W32SERBUFSIZE, W32SERBUFSIZE))
 	{
 		CloseHandle(hComPort);
-		fprintf(stderr, "%s: ser_open(): can't set buffers for \"%s\"\n",
-				progname, port);
-		return -1;
+		print_debug_port("ser_open() : can't set buffers",port, errno);
+		return -E_IO;
 	}
 
         fdp->pfd = (void *)hComPort;
-	if (ser_setspeed(fdp, baud) != 0)
+
+		int setSpeedErr = ser_setspeed(fdp, baud, char_size, parity, two_stop_bits);
+
+	if (setSpeedErr != 0)
 	{
 		CloseHandle(hComPort);
-		fprintf(stderr, "%s: ser_open(): can't set com-state for \"%s\"\n",
-				progname, port);
-		return -1;
+		print_debug_port("ser_open() : can't set com-state", port, errno);
+
+
+		return setSpeedErr;
 	}
 
 	if (!serial_w32SetTimeOut(hComPort,0))
 	{
 		CloseHandle(hComPort);
-		fprintf(stderr, "%s: ser_open(): can't set initial timeout for \"%s\"\n",
-				progname, port);
-		return -1;
+		print_debug_port("ser_open() :  can't set initial timeout", port, errno);
+		return -E_IO;
 	}
 
 	if (newname != 0) {
@@ -275,7 +331,7 @@ int serial_write(struct serial_config* const serial, char* const data, size_t si
 	return ser_send(&serial->fd,data,size);
 }
 
-static int ser_send(union filedescriptor *fd, unsigned char * buf, size_t buflen)
+static int ser_send(union filedescriptor *fd, char const * buf, size_t buflen)
 {
 	size_t len = buflen;
 	unsigned char c='\0';
@@ -285,15 +341,15 @@ static int ser_send(union filedescriptor *fd, unsigned char * buf, size_t buflen
 	HANDLE hComPort=(HANDLE)fd->pfd;
 
 	if (hComPort == INVALID_HANDLE_VALUE) {
-		fprintf(stderr, "%s: ser_send(): port not open\n",
-              progname); 
-		exit(1);
+		print_debug("serial_write(): port not open",errno); 
+		return -E_IO;
 	}
 
 	if (!len)
   return 0;
 
-	if (verbose > 3)
+
+	if (debug)
 	{
 		fprintf(stderr, "%s: Send: ", progname);
 
@@ -309,21 +365,20 @@ static int ser_send(union filedescriptor *fd, unsigned char * buf, size_t buflen
 			b++;
 			len--;
 		}
-      fprintf(stderr, "\n");
+		fprintf(stderr, "\n");
 	}
 	
 	serial_w32SetTimeOut(hComPort,500);
 
 	if (!WriteFile (hComPort, buf, buflen, &written, NULL)) {
-		fprintf(stderr, "%s: ser_send(): write error: %s\n",
-              progname, "sorry no info avail"); // TODO
-		exit(1);
+		print_debug("ser_send() : write error : sorry no info avail", errno);
+
+		return -E_IO;
 	}
 
 	if (written != buflen) {
-		fprintf(stderr, "%s: ser_send(): size/send mismatch\n",
-              progname); 
-		exit(1);
+		print_debug("ser_send() : size/send mismatch", errno);
+		return -E_IO;
 	}
 
 	return 0;
@@ -335,8 +390,7 @@ int serial_read(struct serial_config* const serial, char* const buffer, size_t s
 }
 int serial_cancel_read(struct serial_config* const serial)
 {
-	fprintf(stderr, "%s: called undefined akka_serial.c function: serial_cancel_read\n",
-		progname);
+	print_debug("called undefined akka_serial.c function: serial_cancel_read", errno);
 
 	//int data = DATA_CANCEL;
 
@@ -349,10 +403,8 @@ int serial_cancel_read(struct serial_config* const serial)
 
 	return 0;
 }
-void serial_debug(bool value)
-{
-	debug = value;
-}
+
+
 
 static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen)
 {
@@ -363,9 +415,8 @@ static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen
 	HANDLE hComPort=(HANDLE)fd->pfd;
 	
 	if (hComPort == INVALID_HANDLE_VALUE) {
-		fprintf(stderr, "%s: ser_read(): port not open\n",
-              progname); 
-		exit(1);
+		print_debug("ser_read(): port not open",errno);
+		return -E_IO;
 	}
 	
 	serial_w32SetTimeOut(hComPort, serial_recv_timeout);
@@ -385,21 +436,18 @@ static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen
 		fprintf(stderr, "%s: ser_recv(): read error: %s\n",
 			      progname, (char*)lpMsgBuf);
 		LocalFree( lpMsgBuf );
-		exit(1);
+		return -E_IO;
 	}
 
 	/* time out detected */
 	if (read == 0) {
-		if (verbose > 1)
-		fprintf(stderr,
-			"%s: ser_recv(): programmer is not responding\n",
-			progname);
-		return -1;
+			print_debug("ser_recv() : programmer is not responding",errno);
+		return -E_IO;
 	}
 
 	p = buf;
 
-	if (verbose > 3)
+	if (debug)
 	{
 		fprintf(stderr, "%s: Recv: ", progname);
 
@@ -433,9 +481,8 @@ static int ser_drain(union filedescriptor *fd, int display)
 	HANDLE hComPort=(HANDLE)fd->pfd;
 
   	if (hComPort == INVALID_HANDLE_VALUE) {
-		fprintf(stderr, "%s: ser_drain(): port not open\n",
-              progname); 
-		exit(1);
+		print_debug("ser_drain(): port not open",errno); 
+		return -E_IO;
 	}
 
 	serial_w32SetTimeOut(hComPort,250);
@@ -461,7 +508,7 @@ static int ser_drain(union filedescriptor *fd, int display)
 			fprintf(stderr, "%s: ser_drain(): read error: %s\n",
 					  progname, (char*)lpMsgBuf);
 			LocalFree( lpMsgBuf );
-			exit(1);
+			return -E_IO;
 		}
 
 		if (read) { // data avail
