@@ -28,6 +28,7 @@ Several steps are involved in producing the native library:
 
 	1. Required dependencies: CMake (2.8 or higher), JDK (1.8 or above)
     2. Run `cmake .`
+    3. on Windows 10 Run `cmake . -G "Visual Studio 15 2017 Win64"`. The fact that we are targeting 64 bit must be specified.  We also need to place the *.dll file into the output jar in the target folder manually by changing the jar to a zip and back to a jar. place at top level of jar in /native/x86_64-mingw64_nt-10.0/akkaserial1.dll
 
 2. Compile
 

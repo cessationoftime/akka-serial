@@ -59,13 +59,13 @@ lazy val sync = (project in file("sync"))
   .dependsOn(native % "test->runtime")
 
 lazy val samplesTerminal = (project in file("samples") / "terminal")
-  .dependsOn(core, native % Runtime)
+  .dependsOn(core)
 
 lazy val samplesTerminalStream = (project in file("samples") / "terminal-stream")
-  .dependsOn(stream, native % Runtime)
+  .dependsOn(stream)
 
 lazy val samplesWatcher = (project in file("samples") / "watcher")
-  .dependsOn(core, native % Runtime)
+  .dependsOn(core)
 
 // Root project settings
 publishArtifact := false
