@@ -67,7 +67,7 @@ int gettimeofday(struct timeval *tv, struct timezone *tz);
 * Contains internal configuration of an open serial port.
 */
 struct serial_config;
-
+//
 /**
 * Opens a serial port and allocates memory for storing configuration. Note: if this function fails,
 * any internally allocated resources will be freed.
@@ -139,6 +139,7 @@ int serial_write(struct serial_config* const serial, char* const data, size_t si
 */
 void serial_debug(bool value);
 //---------------------------------------------------------------------------------------------------------------------END PASTE-------------------------------------------------------------------------
+
 #ifdef __cplusplus
 }
 #endif

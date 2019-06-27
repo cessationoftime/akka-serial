@@ -37,13 +37,30 @@ long serial_recv_timeout = 5000; /* ms */
 
 char * progname = "Akka Serial";
 int verbose = 10; //verbosity level of output messages
+static bool debug = false;
+
+#define DATA_CANCEL 0xffffffff
 
 #define W32SERBUFSIZE 1024
+
+#define strncasecmp(x,y,z) _strnicmp(x,y,z)
 
 struct baud_mapping {
   long baud;
   DWORD speed;
 };
+
+//contains file descriptors used in managing a serial port
+struct serial_config {
+	int port_fd; // file descriptor of serial port
+
+				 /* a pipe is used to abort a serial read by writing something into the
+				 * write end of the pipe */
+	int pipe_read_fd; // file descriptor, read end of pipe
+	int pipe_write_fd; // file descriptor, write end of pipe
+	union filedescriptor fd;
+};
+
 
 /* HANDLE hComPort=INVALID_HANDLE_VALUE; */
 
@@ -113,7 +130,24 @@ static int ser_setspeed(union filedescriptor *fd, long baud)
 	return 0;
 }
 
+int serial_open(
+	const char* const port_name,
+	int baud,
+	int char_size,
+	bool two_stop_bits,
+	int parity,
+	struct serial_config** serial)
+{
 
+	struct serial_config* s = malloc(sizeof(s));
+	
+
+	ser_open(port_name, baud, &s->fd);
+	(*serial) = s;
+	return 0;
+}
+
+///NOTE serial_open sets the filedescriptor
 static int ser_open(char * port, long baud, union filedescriptor *fdp)
 {
 	LPVOID lpMsgBuf;
@@ -203,13 +237,23 @@ static int ser_open(char * port, long baud, union filedescriptor *fdp)
 }
 
 
-static void ser_close(union filedescriptor *fd)
+static int ser_close(union filedescriptor *fd)
 {
 	HANDLE hComPort=(HANDLE)fd->pfd;
 	if (hComPort != INVALID_HANDLE_VALUE)
 		CloseHandle (hComPort);
 
 	hComPort = INVALID_HANDLE_VALUE;
+
+	return 0;
+}
+
+int serial_close(struct serial_config* const serial)
+{
+	ser_close(&serial->fd);
+	free(serial);
+
+	return 0;
 }
 
 static int ser_set_dtr_rts(union filedescriptor *fd, int is_on)
@@ -226,6 +270,10 @@ static int ser_set_dtr_rts(union filedescriptor *fd, int is_on)
 	return 0;
 }
 
+int serial_write(struct serial_config* const serial, char* const data, size_t size)
+{
+	return ser_send(&serial->fd,data,size);
+}
 
 static int ser_send(union filedescriptor *fd, unsigned char * buf, size_t buflen)
 {
@@ -281,6 +329,30 @@ static int ser_send(union filedescriptor *fd, unsigned char * buf, size_t buflen
 	return 0;
 }
 
+int serial_read(struct serial_config* const serial, char* const buffer, size_t size)
+{
+	return ser_recv(&serial->fd, buffer, size);
+}
+int serial_cancel_read(struct serial_config* const serial)
+{
+	fprintf(stderr, "%s: called undefined akka_serial.c function: serial_cancel_read\n",
+		progname);
+
+	//int data = DATA_CANCEL;
+
+	////write to pipe to wake up any blocked read thread (self-pipe trick)
+	//if (write(serial->pipe_write_fd, &data, 1) < 0) {
+	//	print_debug("Error writing to pipe during read cancel", errno);
+	//	return -E_IO;
+	//}
+
+
+	return 0;
+}
+void serial_debug(bool value)
+{
+	debug = value;
+}
 
 static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen)
 {
@@ -348,6 +420,7 @@ static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen
 	}
   return 0;
 }
+
 
 
 static int ser_drain(union filedescriptor *fd, int display)

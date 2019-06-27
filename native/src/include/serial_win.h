@@ -40,12 +40,13 @@ union filedescriptor
   } usb;
 };
 
+
 struct serial_device
 {
   // open should return -1 on error, other values on success
   int (*open)(char * port, long baud, union filedescriptor *fd); 
   int (*setspeed)(union filedescriptor *fd, long baud);
-  void (*close)(union filedescriptor *fd);
+  int (*close)(union filedescriptor *fd);
 
   int (*send)(union filedescriptor *fd, unsigned char * buf, size_t buflen);
   int (*recv)(union filedescriptor *fd, unsigned char * buf, size_t buflen);
@@ -63,13 +64,16 @@ extern struct serial_device serial_serdev;
 extern struct serial_device usb_serdev;
 extern struct serial_device usb_serdev_frame;
 extern struct serial_device avrdoper_serdev;
-
-#define serial_open (serdev->open)
-#define serial_setspeed (serdev->setspeed)
-#define serial_close (serdev->close)
-#define serial_send (serdev->send)
-#define serial_recv (serdev->recv)
-#define serial_drain (serdev->drain)
-#define serial_set_dtr_rts (serdev->set_dtr_rts)
+//
+//#define serial_open (serdev->open)
+//#define serial_setspeed (serdev->setspeed)
+//#define serial_close (serdev->close)
+//#define serial_send (serdev->send)
+//#define serial_recv (serdev->recv)
+//#define serial_drain (serdev->drain)
+//#define serial_set_dtr_rts (serdev->set_dtr_rts)
+//
+//#define serial_write (serdev->send)
+//#define serial_read (serdev->recv)
 
 #endif /* serial_win_h */

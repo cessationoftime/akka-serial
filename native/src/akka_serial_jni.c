@@ -2,6 +2,7 @@
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 #include "akka_serial_win.h"
+#include "serial_win.h"
 #else
 #include "akka_serial.h"
 #endif /* WIN32 */ 
