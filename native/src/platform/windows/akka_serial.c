@@ -36,7 +36,7 @@
 long serial_recv_timeout = 5000; /* ms */
 
 char * progname = "Akka Serial";
-static bool debug = false;
+static bool debug = true;
 
 void serial_debug(bool value)
 {
@@ -196,7 +196,7 @@ int serial_open(
 
 	struct serial_config* s = malloc(sizeof(s));
 	
-	char* portName1;
+	char portName1[100];
 
 	strcpy(portName1,port_name);
 	ser_open(portName1, baud,char_size,two_stop_bits,parity, &s->fd);
@@ -205,7 +205,7 @@ int serial_open(
 }
 
 ///NOTE serial_open sets the filedescriptor
-static int ser_open(const char* port, long baud, int char_size, bool two_stop_bits, int parity, union filedescriptor *fdp)
+static int ser_open(char* port, long baud, int char_size, bool two_stop_bits, int parity, union filedescriptor *fdp)
 {
 	LPVOID lpMsgBuf;
 	HANDLE hComPort=INVALID_HANDLE_VALUE;
@@ -326,6 +326,7 @@ static int ser_set_dtr_rts(union filedescriptor *fd, int is_on)
 	return 0;
 }
 
+//return number of bytes sent
 int serial_write(struct serial_config* const serial, char* const data, size_t size)
 {
 	return ser_send(&serial->fd,data,size);
@@ -336,6 +337,7 @@ static int ser_send(union filedescriptor *fd, char const * buf, size_t buflen)
 	size_t len = buflen;
 	unsigned char c='\0';
 	DWORD written;
+	DWORD writtenReturn;
         unsigned char * b = buf;
 
 	HANDLE hComPort=(HANDLE)fd->pfd;
@@ -375,19 +377,18 @@ static int ser_send(union filedescriptor *fd, char const * buf, size_t buflen)
 
 		return -E_IO;
 	}
+	writtenReturn = written;
 
 	if (written != buflen) {
 		print_debug("ser_send() : size/send mismatch", errno);
 		return -E_IO;
 	}
 
-	return 0;
+	//return number of bytes sent
+	return writtenReturn;
 }
 
-int serial_read(struct serial_config* const serial, char* const buffer, size_t size)
-{
-	return ser_recv(&serial->fd, buffer, size);
-}
+
 int serial_cancel_read(struct serial_config* const serial)
 {
 	print_debug("called undefined akka_serial.c function: serial_cancel_read", errno);
@@ -404,13 +405,19 @@ int serial_cancel_read(struct serial_config* const serial)
 	return 0;
 }
 
-
-
-static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen)
+//return number of bytes read
+int serial_read(struct serial_config* const serial, unsigned char* const buf, size_t buflen)
 {
+//	return ser_recv(&serial->fd, &buffer, size);
+//}
+
+//static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen)
+//{
 	unsigned char c;
 	unsigned char * p = buf;
+	union filedescriptor * fd = &serial->fd;
 	DWORD read;
+	DWORD readReturn;
 
 	HANDLE hComPort=(HANDLE)fd->pfd;
 	
@@ -418,7 +425,7 @@ static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen
 		print_debug("ser_read(): port not open",errno);
 		return -E_IO;
 	}
-	
+
 	serial_w32SetTimeOut(hComPort, serial_recv_timeout);
 	
 	if (!ReadFile(hComPort, buf, buflen, &read, NULL)) {
@@ -438,6 +445,8 @@ static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen
 		LocalFree( lpMsgBuf );
 		return -E_IO;
 	}
+
+	readReturn = read;
 
 	/* time out detected */
 	if (read == 0) {
@@ -466,7 +475,9 @@ static int ser_recv(union filedescriptor *fd, unsigned char * buf, size_t buflen
 		}
 		fprintf(stderr, "\n");
 	}
-  return 0;
+
+	//return number of bytes read
+  return readReturn;
 }
 
 
@@ -528,7 +539,7 @@ struct serial_device serial_serdev =
   .setspeed = ser_setspeed,
   .close = ser_close,
   .send = ser_send,
-  .recv = ser_recv,
+  //.recv = ser_recv,
   .drain = ser_drain,
   .set_dtr_rts = ser_set_dtr_rts,
   .flags = SERDEV_FL_CANSETSPEED,
