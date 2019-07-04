@@ -238,7 +238,7 @@ static int ser_open(char* port, long baud, int char_size, bool two_stop_bits, in
 	}
 
 	hComPort = CreateFile(port, GENERIC_READ | GENERIC_WRITE, 0, NULL,
-		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);  //FILE_FLAG_OVERLAPPED
 
 	if (hComPort == INVALID_HANDLE_VALUE) {
 		FormatMessage( 
@@ -428,6 +428,7 @@ int serial_read(struct serial_config* const serial, unsigned char* const buf, si
 
 	serial_w32SetTimeOut(hComPort, serial_recv_timeout);
 	
+	//READFILE IS A BLOCKING OPERATION!!!!!!!!!!!!!!!!!! Replace with ReadFileEx! OR write to the comPort to wake it up. Which is what the function "serial_cancel_read" does.  Might be able to use Overlapped structure and FILE_FLAG_OVERLAPPED during file creation
 	if (!ReadFile(hComPort, buf, buflen, &read, NULL)) {
 		LPVOID lpMsgBuf;
 		FormatMessage( 

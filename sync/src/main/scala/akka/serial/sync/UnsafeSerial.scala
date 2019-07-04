@@ -98,6 +98,8 @@ private[serial] object UnsafeSerial {
     */
   @native def open(port: String, baud: Int, characterSize: Int, twoStopBits: Boolean, parity: Int): Long
 
+  @native def openWindows(port: String, baud: Int, characterSize: Int, twoStopBits: Boolean, parity: Int, readCallback: () => Unit): Long
+
    /**
     * Sets native debugging mode. If debugging is enabled, detailed error messages
     * are printed (to stderr) from native method calls.

@@ -35,7 +35,7 @@ class Terminal(port: String, settings: SerialSettings) extends Actor with ActorL
   def opened(operator: ActorRef): Receive = {
 
     case Serial.Received(data) => {
-      log.info(s"Received data: ${formatData(data)}")
+      log.info(s"Received data: ${formatData(data)} ${data.length}")
     }
 
     case Terminal.Wrote(data) => log.info(s"Wrote data: ${formatData(data)}")

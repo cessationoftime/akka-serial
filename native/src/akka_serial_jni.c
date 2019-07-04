@@ -66,6 +66,36 @@ JNIEXPORT jlong JNICALL Java_akka_serial_sync_UnsafeSerial_00024_open
 }
 
 /*
+* Class:     akka_serial_sync_UnsafeSerial__
+* Method:    openWindows
+* Signature: (Ljava/lang/String;IIZI)J
+*/
+JNIEXPORT jlong JNICALL Java_akka_serial_sync_UnsafeSerial_00024_openWindows
+(JNIEnv *env, jobject instance, jstring port_name, jint baud, jint char_size, jboolean two_stop_bits, jint parity, jobject readCallback)
+{
+	UNUSED_ARG(instance);
+
+	/* find the current jvm */
+	(*env)->GetJavaVM(env, &jvm);
+	/* upgrade callback to global ref */
+	callback = (*env)->NewGlobalRef(env, readCallback);
+
+
+	const char *dev = (*env)->GetStringUTFChars(env, port_name, 0);
+	struct serial_config* config;
+	int r = serial_open(dev, baud, char_size, two_stop_bits, parity, &config);
+	(*env)->ReleaseStringUTFChars(env, port_name, dev);
+
+	if (r < 0) {
+		check(env, r);
+		return -E_IO;
+	}
+
+	long jpointer = (long)config;
+	return (jlong)jpointer;
+}
+
+/*
  * Class:     akka_serial_sync_UnsafeSerial
  * Method:    read
  * Signature: (Ljava/nio/ByteBuffer;)I

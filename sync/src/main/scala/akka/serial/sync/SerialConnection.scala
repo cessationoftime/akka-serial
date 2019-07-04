@@ -110,6 +110,8 @@ class SerialConnection private (
 
 }
 
+
+
 object SerialConnection {
 
   /**
@@ -127,16 +129,34 @@ object SerialConnection {
    */
   def open(
     port: String,
-    settings: SerialSettings
+    settings: SerialSettings,
+    readCallbackWindowsOnly: () => Unit
   ): SerialConnection = synchronized {
-    val pointer = UnsafeSerial.open(
+
+    val pointer = if (OsUtils.isWindows) {
+      UnsafeSerial.openWindows(
       port,
       settings.baud,
       settings.characterSize,
       settings.twoStopBits,
-      settings.parity.id
-    )
+      settings.parity.id,
+      readCallbackWindowsOnly)
+    } else { 
+      UnsafeSerial.open(
+      port,
+      settings.baud,
+      settings.characterSize,
+      settings.twoStopBits,
+      settings.parity.id) 
+    }
+
+    
     new SerialConnection(new UnsafeSerial(pointer), port)
   }
+}
 
+object OsUtils
+{
+  lazy val os = System.getProperty("os.name")
+  def isWindows = os.startsWith("Windows")
 }

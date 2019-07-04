@@ -22,9 +22,8 @@ private[serial] class SerialManager extends Actor {
   private val watcher = actorOf(Watcher(self), "watcher")
 
   def receive = {
-
     case open @ Serial.Open(port, settings, bufferSize) => Try {
-      SerialConnection.open(port, settings)
+      SerialConnection.open(port, settings, WindowsOnly.readCallback)
     } match {
       case Success(connection) => context.actorOf(SerialOperator(connection, bufferSize, sender), name = escapePortString(connection.port))
       case Failure(err) => sender ! Serial.CommandFailed(open, err)
@@ -33,7 +32,6 @@ private[serial] class SerialManager extends Actor {
     case w: Serial.Watch => watcher.forward(w)
 
     case u: Serial.Unwatch => watcher.forward(u)
-
   }
 
 }
@@ -45,4 +43,9 @@ private[serial] object SerialManager {
     case c => c
   }
 
+}
+
+object WindowsOnly {
+
+  def readCallback() = {}
 }

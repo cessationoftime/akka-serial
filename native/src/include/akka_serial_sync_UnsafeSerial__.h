@@ -17,6 +17,14 @@ JNIEXPORT jlong JNICALL Java_akka_serial_sync_UnsafeSerial_00024_open
 
 /*
  * Class:     akka_serial_sync_UnsafeSerial__
+ * Method:    openWindows
+ * Signature: (Ljava/lang/String;IIZILscala/Function0;)J
+ */
+JNIEXPORT jlong JNICALL Java_akka_serial_sync_UnsafeSerial_00024_openWindows
+  (JNIEnv *, jobject, jstring, jint, jint, jboolean, jint, jobject);
+
+/*
+ * Class:     akka_serial_sync_UnsafeSerial__
  * Method:    debug
  * Signature: (Z)V
  */
