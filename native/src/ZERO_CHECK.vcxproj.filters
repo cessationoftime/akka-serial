@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\cvanvranken\gits\akka-serial\native\src\CMakeFiles\ac1f1ecff740a8ac1b108c207e52cc85\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{9E2C504E-CCE5-3C76-BA66-1A5A80566C82}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

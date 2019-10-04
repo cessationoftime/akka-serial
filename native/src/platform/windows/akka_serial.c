@@ -130,28 +130,54 @@ static DWORD serial_baud_lookup(long baud)
 }
 
 
-static BOOL serial_w32SetTimeOut(HANDLE hComPort, DWORD timeout) // in ms
-{
-	COMMTIMEOUTS ctmo;
-	ZeroMemory (&ctmo, sizeof(COMMTIMEOUTS));
-	ctmo.ReadIntervalTimeout = timeout;
-	ctmo.ReadTotalTimeoutMultiplier = timeout;
-	ctmo.ReadTotalTimeoutConstant = timeout;
-
-	return SetCommTimeouts(hComPort, &ctmo);
-}
+//static BOOL serial_w32SetTimeOut(HANDLE hComPort, DWORD timeout) // in ms
+//{
+//	COMMTIMEOUTS ctmo;
+//	ZeroMemory (&ctmo, sizeof(COMMTIMEOUTS));
+//	ctmo.ReadIntervalTimeout = timeout;
+//	ctmo.ReadTotalTimeoutMultiplier = timeout;
+//	ctmo.ReadTotalTimeoutConstant = timeout;
+//
+//	return SetCommTimeouts(hComPort, &ctmo);
+//}
 
 static int ser_setspeed(union filedescriptor *fd, long baud, int char_size, int parity, bool two_stop_bits)
 {
 	DCB dcb;
+	COMMTIMEOUTS timeouts;
+
+	dcb.fBinary = true;
+	dcb.fDtrControl = DTR_CONTROL_ENABLE;
+	dcb.fDsrSensitivity = false;
+	dcb.fTXContinueOnXoff = false;
+	dcb.fOutX = false;
+	dcb.fInX = false;
+	dcb.fErrorChar = false;
+	dcb.fNull = false;
+	dcb.fRtsControl = RTS_CONTROL_ENABLE;
+	dcb.fAbortOnError = false;
+	dcb.fOutxCtsFlow = false;
+	dcb.fOutxDsrFlow = false;
+
+
 	HANDLE hComPort = (HANDLE)fd->pfd;
 
 	ZeroMemory (&dcb, sizeof(DCB));
 	dcb.DCBlength = sizeof(DCB);
 	dcb.BaudRate = serial_baud_lookup (baud);
-	dcb.fBinary = 1;
+	/*dcb.fBinary = 1;
 	dcb.fDtrControl = DTR_CONTROL_DISABLE;
 	dcb.fRtsControl = RTS_CONTROL_DISABLE;
+	dcb.fOutX = 1;
+	dcb.fInX = 1;
+	dcb.XonChar = 0x11;
+	dcb.XoffChar = 0x13;
+	dcb.XonLim = 0x0a;
+	dcb.XoffLim = 0x0a;
+	
+*/
+	//set flow control to use XONXOFF
+	dcb.fOutX = dcb.fInX = true;
 
 	switch (char_size) {
 	case 5: dcb.ByteSize = 5; break;
@@ -180,6 +206,14 @@ static int ser_setspeed(union filedescriptor *fd, long baud, int char_size, int 
 	dcb.StopBits = two_stop_bits ? TWOSTOPBITS : ONESTOPBIT;
 
 	if (!SetCommState(hComPort, &dcb))
+		return -E_INVALID_SETTINGS;
+
+	timeouts.ReadIntervalTimeout = 1;
+	timeouts.ReadTotalTimeoutMultiplier = 0;
+	timeouts.ReadTotalTimeoutConstant = 0;
+	timeouts.WriteTotalTimeoutMultiplier = 0;
+	timeouts.WriteTotalTimeoutConstant = 0;
+	if (!SetCommTimeouts(hComPort, &timeouts))
 		return -E_INVALID_SETTINGS;
 
 	return 0;
@@ -279,12 +313,12 @@ static int ser_open(char* port, long baud, int char_size, bool two_stop_bits, in
 		return setSpeedErr;
 	}
 
-	if (!serial_w32SetTimeOut(hComPort,0))
+	/*if (!serial_w32SetTimeOut(hComPort,0))
 	{
 		CloseHandle(hComPort);
 		print_debug_port("ser_open() :  can't set initial timeout", port, errno);
 		return -E_IO;
-	}
+	}*/
 
 	if (newname != 0) {
 	    free(newname);
@@ -369,21 +403,61 @@ static int ser_send(union filedescriptor *fd, char const * buf, size_t buflen)
 		}
 		fprintf(stderr, "\n");
 	}
+
+	DWORD errorflags;
+	COMSTAT commStatus;
 	
-	serial_w32SetTimeOut(hComPort,500);
+	//serial_w32SetTimeOut(hComPort,500);
+	fprintf(stderr, "%s: clearcommport ", progname);
+	ClearCommError(hComPort, &errorflags, &commStatus);
+	fprintf(stderr, "%s: WrittenReturn0 ", progname);
+
+	if (errorflags) {
+		if (errorflags & CE_RXOVER)
+			printf("  Receive Queue overflow\n");
+		if (errorflags & CE_OVERRUN)
+			printf("  Receive Overrun error\n");
+		if (errorflags & CE_RXPARITY)
+			printf("  Receive Parity error\n");
+		if (errorflags & CE_FRAME)
+			printf("  Receive Framing error\n");
+		if (errorflags & CE_BREAK)
+			printf("  Break detected\n");
+		if (errorflags & CE_TXFULL)
+			printf("  TX Queue is full\n");
+		if (errorflags & CE_PTO)
+			printf("  LPTx Timeout\n");
+		if (errorflags & CE_IOE)
+			printf("  LPTx I/O Error\n");
+		if (errorflags & CE_DNS)
+			printf("  LPTx Device Not Selected\n");
+		if (errorflags & CE_OOP)
+			printf("  LPTx Out Of Paper\n");
+	}
+	fprintf(stderr, "Port Status:\n");
+	fprintf(stderr, "  Cts Hold:  %d\n", commStatus.fCtsHold);
+	fprintf(stderr, "  Dsr Hold:  %d\n", commStatus.fDsrHold);
+	fprintf(stderr, "  Rlsd Hold: %d\n", commStatus.fRlsdHold);
+	fprintf(stderr, "  Xoff Hold: %d\n", commStatus.fXoffHold);
+	fprintf(stderr, "  Xoff Sent: %d\n", commStatus.fXoffSent);
+	fprintf(stderr, "  Eof:       %d\n", commStatus.fEof);
+	fprintf(stderr, "  Tx Immed:  %d\n", commStatus.fTxim);
+	fprintf(stderr, "  In Que:    %d\n", commStatus.cbInQue);
+	fprintf(stderr, "  Out Que:   %d\n", commStatus.cbOutQue);
 
 	if (!WriteFile (hComPort, buf, buflen, &written, NULL)) {
+		fprintf(stderr, "%s: WrittenReturn1 ", progname);
 		print_debug("ser_send() : write error : sorry no info avail", errno);
-
+		fprintf(stderr, "%s: WrittenReturn2 ", progname);
 		return -E_IO;
 	}
 	writtenReturn = written;
-
+	fprintf(stderr, "%s: WrittenReturn3 ", progname);
 	if (written != buflen) {
 		print_debug("ser_send() : size/send mismatch", errno);
 		return -E_IO;
 	}
-
+	fprintf(stderr, "%s: WrittenReturn4 ", progname);
 	//return number of bytes sent
 	return writtenReturn;
 }
@@ -426,7 +500,7 @@ int serial_read(struct serial_config* const serial, unsigned char* const buf, si
 		return -E_IO;
 	}
 
-	serial_w32SetTimeOut(hComPort, serial_recv_timeout);
+	//serial_w32SetTimeOut(hComPort, serial_recv_timeout);
 	
 	if (!ReadFile(hComPort, buf, buflen, &read, NULL)) {
 		LPVOID lpMsgBuf;
@@ -496,7 +570,7 @@ static int ser_drain(union filedescriptor *fd, int display)
 		return -E_IO;
 	}
 
-	serial_w32SetTimeOut(hComPort,250);
+	//serial_w32SetTimeOut(hComPort,250);
   
 	if (display) {
 		fprintf(stderr, "drain>");

@@ -50,8 +50,30 @@ private[serial] class SerialOperator(connection: SerialConnection, bufferSize: I
   override def preStart() = {
     context watch client
     client ! Serial.Opened(connection.port)
-    Reader.start()
   }
+
+  var beginReader = true
+
+  val buffer = ByteBuffer.allocateDirect(bufferSize)
+  var stop = false
+  def readSerial(): Unit = { 
+      if (!connection.isClosed && !stop) {
+        try {
+          buffer.clear()
+          connection.read(buffer)
+          val data = ByteString.fromByteBuffer(buffer)
+          client.tell(Serial.Received(data), self)
+        } catch {
+          // don't do anything if port is interrupted
+          case ex: PortInterruptedException => {}
+
+          //stop and tell operator on other exception
+          case ex: Exception =>
+            stop = true
+            self.tell(ReaderDied(ex), Actor.noSender)
+        }
+      }
+    }
 
   override def receive: Receive = {
 
@@ -60,7 +82,8 @@ private[serial] class SerialOperator(connection: SerialConnection, bufferSize: I
       data.copyToBuffer(writeBuffer)
       val sent = connection.write(writeBuffer)
       if (ack != Serial.NoAck) sender ! ack(sent)
-
+      readSerial()
+	  
     case Serial.Close =>
       client ! Serial.Closed
       context stop self

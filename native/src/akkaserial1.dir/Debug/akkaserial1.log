@@ -1,0 +1,153 @@
+﻿  Building Custom Rule C:/Users/cvanvranken/gits/akka-serial/native/src/CMakeLists.txt
+  CMake does not need to re-run because C:/Users/cvanvranken/gits/akka-serial/native/src/CMakeFiles/generate.stamp is up-to-date.
+  akka_serial_jni.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winuser.h(6537,32): warning C4255:  'EnableMouseInPointerForThread': no function prototype given: converting '()' to '(void)'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winuser.h(14186,30): warning C4255:  'GetThreadDpiHostingBehavior': no function prototype given: converting '()' to '(void)'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(9989,22): warning C4668:  '_WIN32_WINNT_WIN10_TH2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(9995,22): warning C4668:  '_WIN32_WINNT_WIN10_RS1' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10000,22): warning C4668:  '_WIN32_WINNT_WIN10_TH2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10004,22): warning C4668:  '_WIN32_WINNT_WIN10_TH2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10011,22): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10021,22): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10025,22): warning C4668:  '_WIN32_WINNT_WIN10_TH2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10030,22): warning C4668:  '_WIN32_WINNT_WIN10_RS3' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10037,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10040,22): warning C4668:  '_WIN32_WINNT_WIN10_RS1' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10043,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10048,22): warning C4668:  '_WIN32_WINNT_WIN10_RS1' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10051,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10246,22): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10270,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10831,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(13662,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(13844,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(13947,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14043,21): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14147,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14804,23): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14821,22): warning C4668:  '_WIN32_WINNT_WIN10_RS3' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14838,23): warning C4668:  '_WIN32_WINNT_WIN10_RS3' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14857,22): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14976,22): warning C4668:  '_WIN32_WINNT_WIN10_RS3' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(15126,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(15139,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(15367,22): warning C4668:  '_WIN32_WINNT_WIN10_RS1' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\akka_serial_win.h(62,1): warning C4005:  'PARITY_NONE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winbase.h(410): message :  see previous definition of 'PARITY_NONE'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\akka_serial_win.h(63,1): warning C4005:  'PARITY_ODD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winbase.h(411): message :  see previous definition of 'PARITY_ODD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\akka_serial_win.h(64,1): warning C4005:  'PARITY_EVEN': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winbase.h(412): message :  see previous definition of 'PARITY_EVEN'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\serial_win.h(40,3): warning C4820:  '<unnamed-tag>': '4' bytes padding added after data member 'ep'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\serial_win.h(60,1): warning C4820:  'serial_device': '4' bytes padding added after data member 'flags'
+C:\Program Files\Java\jdk1.8.0_211\include\jni.h(1874,1): warning C4820:  'JavaVMInitArgs': '7' bytes padding added after data member 'ignoreUnrecognized'
+C:\Program Files\Java\jdk1.8.0_211\include\jni.h(1879,15): warning C4820:  'JavaVMAttachArgs': '4' bytes padding added after data member 'version'
+  akka_serial.c
+C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(64,31): warning C4311:  'type cast': pointer truncation from 'serial_config *' to 'long'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winuser.h(6537,32): warning C4255:  'EnableMouseInPointerForThread': no function prototype given: converting '()' to '(void)'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winuser.h(14186,30): warning C4255:  'GetThreadDpiHostingBehavior': no function prototype given: converting '()' to '(void)'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(9989,22): warning C4668:  '_WIN32_WINNT_WIN10_TH2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(9995,22): warning C4668:  '_WIN32_WINNT_WIN10_RS1' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10000,22): warning C4668:  '_WIN32_WINNT_WIN10_TH2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10004,22): warning C4668:  '_WIN32_WINNT_WIN10_TH2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10011,22): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10021,22): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10025,22): warning C4668:  '_WIN32_WINNT_WIN10_TH2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10030,22): warning C4668:  '_WIN32_WINNT_WIN10_RS3' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10037,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10040,22): warning C4668:  '_WIN32_WINNT_WIN10_RS1' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10043,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10048,22): warning C4668:  '_WIN32_WINNT_WIN10_RS1' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10051,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10246,22): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10270,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(10831,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(13662,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(13844,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(13947,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14043,21): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14147,22): warning C4668:  '_WIN32_WINNT_WIN10_RS5' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14804,23): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14821,22): warning C4668:  '_WIN32_WINNT_WIN10_RS3' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14838,23): warning C4668:  '_WIN32_WINNT_WIN10_RS3' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14857,22): warning C4668:  '_WIN32_WINNT_WIN10_RS2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(14976,22): warning C4668:  '_WIN32_WINNT_WIN10_RS3' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(15126,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(15139,22): warning C4668:  '_WIN32_WINNT_WIN10_RS4' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h(15367,22): warning C4668:  '_WIN32_WINNT_WIN10_RS1' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\akka_serial_win.h(62,1): warning C4005:  'PARITY_NONE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winbase.h(410): message :  see previous definition of 'PARITY_NONE'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\akka_serial_win.h(63,1): warning C4005:  'PARITY_ODD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winbase.h(411): message :  see previous definition of 'PARITY_ODD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\akka_serial_win.h(64,1): warning C4005:  'PARITY_EVEN': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winbase.h(412): message :  see previous definition of 'PARITY_EVEN'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\serial_win.h(40,3): warning C4820:  '<unnamed-tag>': '4' bytes padding added after data member 'ep'
+C:\Users\cvanvranken\gits\akka-serial\native\src\include\serial_win.h(60,1): warning C4820:  'serial_device': '4' bytes padding added after data member 'flags'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(93,25): warning C4820:  'serial_config': '4' bytes padding added after data member 'pipe_write_fd'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(188,8): warning C4013:  'close' undefined; assuming extern returning int
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(229,1): warning C4028:  formal parameter 1 different from declaration
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(229,1): warning C4028:  formal parameter 6 different from declaration
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(236,10): warning C4013:  'ser_open' undefined; assuming extern returning int
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(235,1): warning C4996:  'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\string.h(133): message :  see declaration of 'strcpy'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(243,1): warning C4211:  nonstandard extension used: redefined extern to static
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(289,81): warning C4047:  'function': 'const size_t' differs in levels of indirection from 'char [39]'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(289,81): warning C4024:  '_snprintf_s': different types for formal and actual parameter 3
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(289,83): warning C4774:  '_snprintf_s' : format string expected in argument 4 is not a string literal
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(289,83): message :  e.g. instead of printf(name); use printf("%s", name); because format specifiers in 'name' may pose a security issue
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(268,1): warning C4996:  'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\string.h(133): message :  see declaration of 'strcpy'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(269,1): warning C4996:  'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\string.h(90): message :  see declaration of 'strcat'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(366,17): warning C4013:  'ser_send' undefined; assuming extern returning int
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(370,1): warning C4211:  nonstandard extension used: redefined extern to static
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(438,18): warning C4777:  'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(438,18): message :  consider using '%ld' in the format string
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(439,18): warning C4777:  'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(439,18): message :  consider using '%ld' in the format string
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(440,18): warning C4777:  'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(440,18): message :  consider using '%ld' in the format string
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(441,18): warning C4777:  'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(441,18): message :  consider using '%ld' in the format string
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(442,18): warning C4777:  'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(442,18): message :  consider using '%ld' in the format string
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(443,18): warning C4777:  'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(443,18): message :  consider using '%ld' in the format string
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(444,18): warning C4777:  'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(444,18): message :  consider using '%ld' in the format string
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(445,18): warning C4777:  'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(445,18): message :  consider using '%ld' in the format string
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(446,18): warning C4777:  'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'DWORD'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(446,18): message :  consider using '%ld' in the format string
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(448,39): warning C4267:  'function': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(375,1): warning C4090:  'initializing': different 'const' qualifiers
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(466,52): warning C4100:  'serial': unreferenced formal parameter
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(484,1): warning C4028:  formal parameter 2 different from declaration
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(505,37): warning C4267:  'function': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(610,1): warning C4113:  'int (__cdecl *)(char *,long,int,bool,int,filedescriptor *)' differs in parameter lists from 'int (__cdecl *)(char *,long,filedescriptor *)'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(610,1): warning C4113:  'int (__cdecl *)(filedescriptor *,long,int,int,bool)' differs in parameter lists from 'int (__cdecl *)(filedescriptor *,long)'
+C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c(610,1): warning C4028:  formal parameter 2 different from declaration
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(828,37): warning C4710:  'int fprintf(FILE *const ,const char *const ,...)': function not inlined
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(828): message :  see declaration of 'fprintf'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(948,37): warning C4710:  'int printf(const char *const ,...)': function not inlined
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(948): message :  see declaration of 'printf'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054,37): warning C4710:  'int _snprintf_s(char *const ,const size_t,const size_t,const char *const ,...)': function not inlined
+  Generating Code...
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message :  see declaration of '_snprintf_s'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(102) : warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(101) : note: index 'r' range checked by comparison on this line
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(102) : note: feeds call on this line
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(86) : warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(85) : note: index 'r' range checked by comparison on this line
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(86) : note: feeds call on this line
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(60) : warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(59) : note: index 'r' range checked by comparison on this line
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(60) : note: feeds call on this line
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(123) : warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(122) : note: index 'r' range checked by comparison on this line
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(123) : note: feeds call on this line
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(139) : warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(138) : note: index 'r' range checked by comparison on this line
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(2054): message : C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c(139) : note: feeds call on this line
+     Creating library C:/Users/cvanvranken/gits/akka-serial/native/src/Debug/akkaserial1.lib and object C:/Users/cvanvranken/gits/akka-serial/native/src/Debug/akkaserial1.exp
+  akkaserial1.vcxproj -> C:\Users\cvanvranken\gits\akka-serial\native\src\Debug\akkaserial1.dll

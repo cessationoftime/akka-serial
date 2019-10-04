@@ -26,9 +26,11 @@ Several steps are involved in producing the native library:
 
 1. Bootstrap the build (run this once, if `Makefile` does not exist).
 
-	1. Required dependencies: CMake (2.8 or higher), JDK (1.8 or above)
-    2. Run `cmake .`
-    3. on Windows 10 Run `cmake . -G "Visual Studio 15 2017 Win64"`. The fact that we are targeting 64 bit must be specified.  We also need to place the *.dll file into the output jar in the target folder manually by changing the jar to a zip and back to a jar. place at top level of jar in /native/x86_64-mingw64_nt-10.0/akkaserial1.dll
+  1. Required dependencies: CMake (2.8 or higher), JDK (1.8 or above)
+   2. Run `cmake .`
+   3. on Windows 10 Run 
+      * The fact that we are targeting 64 bit must be specified.   `cmake . -G "Visual Studio 16 2019" -A x64` OR `cmake . -G "Visual Studio 15 2017 Win64"`
+      *  We also need to place the *.dll file into the output jar in the target folder manually by changing the jar to a zip and back to a jar. place at top level of jar in /native/x86_64-mingw64_nt-10.0/akkaserial1.dll
 
 2. Compile
 
@@ -39,7 +41,7 @@ Several steps are involved in producing the native library:
 
     The native library is now ready and can be:
 
-	- copied to a local directory: `DESTDIR=$(pwd)/<directory> make install`
+    - copied to a local directory: `DESTDIR=$(pwd)/<directory> make install`
 
     - installed system-wide: `make install`
 

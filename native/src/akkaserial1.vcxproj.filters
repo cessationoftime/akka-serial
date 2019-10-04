@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\cvanvranken\gits\akka-serial\native\src\akka_serial_jni.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\cvanvranken\gits\akka-serial\native\src\platform\windows\akka_serial.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\cvanvranken\gits\akka-serial\native\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{DF6E6AF2-D4A2-3005-ACAA-F397D6FF28DF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
